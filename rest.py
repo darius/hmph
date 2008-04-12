@@ -101,77 +101,77 @@ better one.)
 class HmphDispatcher(webserver.MetaDispatcher):
 
     def get_(self, http):
-	http.send_html(welcome)
+        http.send_html(welcome)
 
     def get_about(self, http):
-	http.send_html(about)
+        http.send_html(about)
 
     def post_makeaccount(self, http):
-	import builtin
-	account = builtin.make_account()
-	add_account(get_id(account))
-	http.redirect('%s' % get_uri(account))
+        import builtin
+        account = builtin.make_account()
+        add_account(get_id(account))
+        http.redirect('%s' % get_uri(account))
 
     def get_id_V(self, http, hid):
-	if not id_is_defined(hid):
-	    http.send_error(404, 'Object Not Found: %s' % http.path)
-	else:
-	    access_id(hid)
-	    http.send_html(get_actor(hid).show())
+        if not id_is_defined(hid):
+            http.send_error(404, 'Object Not Found: %s' % http.path)
+        else:
+            access_id(hid)
+            http.send_html(get_actor(hid).show())
 
     def get_id_V_edit(self, http, hid, serial_id):
-	actor = get_actor(hid)
-	# XXX complain if serial_id is not an existing element
-	http.send_html(actor.show_editable(int(serial_id)))
+        actor = get_actor(hid)
+        # XXX complain if serial_id is not an existing element
+        http.send_html(actor.show_editable(int(serial_id)))
 
     def post_id_V_update(self, http, hid, serial_id, body):
-	actor = get_actor(hid)
-	element = actor.get_element(int(serial_id))
-	element.set_body(body)
-	http.redirect(element_uri(actor, element))
+        actor = get_actor(hid)
+        element = actor.get_element(int(serial_id))
+        element.set_body(body)
+        http.redirect(element_uri(actor, element))
 
     def post_id_V_delete(self, http, hid, serial_id):
-	actor = get_actor(hid)
-	previous_element = actor.delete_element(int(serial_id))
-	if previous_element is None:
-	    uri = get_uri(actor)
-	else:
-	    uri = element_uri(actor, previous_element)
-	http.redirect(uri)
+        actor = get_actor(hid)
+        previous_element = actor.delete_element(int(serial_id))
+        if previous_element is None:
+            uri = get_uri(actor)
+        else:
+            uri = element_uri(actor, previous_element)
+        http.redirect(uri)
 
     def post_id_V_addexample(self, http, hid, content):
-	actor = get_actor(hid)
-	example = actor.add_example(content)
-	http.redirect(element_uri(actor, example))
+        actor = get_actor(hid)
+        example = actor.add_example(content)
+        http.redirect(element_uri(actor, example))
 
     def post_id_V_addmethod(self, http, hid, content):
-	actor = get_actor(hid)
-	selector, parameters = parse_signature(content)
-	actor.add_method(selector, parameters)
-	element = actor.get_method(selector)
-	http.redirect('%s/edit?%s#%s' % \
-		      (get_uri(actor), 
-		       urllib.urlencode({'serial_id': element.serial_id}),
-		       element.serial_id))
+        actor = get_actor(hid)
+        selector, parameters = parse_signature(content)
+        actor.add_method(selector, parameters)
+        element = actor.get_method(selector)
+        http.redirect('%s/edit?%s#%s' % \
+                      (get_uri(actor), 
+                       urllib.urlencode({'serial_id': element.serial_id}),
+                       element.serial_id))
 
     def post_id_V_addtext(self, http, hid, content):
-	actor = get_actor(hid)
-	text = actor.add_text(content)
-	http.redirect(element_uri(actor, text))
+        actor = get_actor(hid)
+        text = actor.add_text(content)
+        http.redirect(element_uri(actor, text))
 
     def post_id_V_call(self, http, hid, selector, **query):
-	actor = get_actor(hid)
-	# XXX what if query needs to contain 'selector' as a key?
-	arguments = parse_args(actor.get_method(selector), query)
-	result = actor.call(selector, arguments)
-	http.redirect('%s' % get_uri(result))
+        actor = get_actor(hid)
+        # XXX what if query needs to contain 'selector' as a key?
+        arguments = parse_args(actor.get_method(selector), query)
+        result = actor.call(selector, arguments)
+        http.redirect('%s' % get_uri(result))
 
 dispatcher = HmphDispatcher()
 
 class HmphHTTPRequestHandler(webserver.DispatchingHTTPRequestHandler):
 
     def _get_dispatcher(self):
-	return dispatcher
+        return dispatcher
 
 
 def element_uri(actor, element):
@@ -182,7 +182,7 @@ def parse_args(method, query):
 
 def parse_arg(p, query):
     if p not in query:
-	raise 'Missing parameter', p
+        raise 'Missing parameter', p
     lit_expr = parse_literal(query[p])
     return lit_expr.run(None, None)
 
@@ -195,8 +195,8 @@ def method_call_form(target, selector, argument_field):
     %(body)s
    </form>
 ''' % { 'uri': get_uri(target), 
-	'selector': cgi.escape(selector, True),
-	'body': body }
+        'selector': cgi.escape(selector, True),
+        'body': body }
 
 def element_delete_form(target, serial_id):
     return '''
@@ -205,7 +205,7 @@ def element_delete_form(target, serial_id):
     <input type="submit" value="Delete">
    </form>
 ''' % { 'uri': get_uri(target), 
-	'serial_id': serial_id }
+        'serial_id': serial_id }
 
 def element_edit_form(target, serial_id):
     return '''
@@ -214,7 +214,7 @@ def element_edit_form(target, serial_id):
     <input type="submit" value="Edit">
    </form>
 ''' % { 'uri': get_uri(target), 
-	'serial_id': serial_id }
+        'serial_id': serial_id }
 
 def element_editor_form(target, serial_id, body):
     return '''
@@ -224,8 +224,8 @@ def element_editor_form(target, serial_id, body):
 <textarea name="body" style="width:100%%" rows="10">%(body)s</textarea>
 </form>
 ''' % { 'uri': get_uri(target), 
-	'serial_id': serial_id,
-	'body': cgi.escape(body) }
+        'serial_id': serial_id,
+        'body': cgi.escape(body) }
 
 def adder_form(target):
     return '''
