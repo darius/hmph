@@ -1,0 +1,46 @@
+Principles from Amy Bruckman's MOOSE:
+
+1. Have a gently-sloping learning curve.
+
+"Programming" should be similar to "using".  A few ideas in that vein: 
+
+- programming by demonstration like Toontalk, only actions are clicks
+  in the browser, etc.
+
+- a smooth slope between something like like OVAL and the full Hmph
+  language
+
+- standard "using" operations should involve elements of the language,
+  e.g. the current situation with mailboxes
+
+- wysiwyg html editing, of course, with quasiquotation or something
+
+"The similarity between the command line and the programming language
+is just one example of the many ways we tried to make the slope of the
+learning curve gentle.  This principle was central throughout the
+process of language design."
+
+2. Prefer intuitive simplicity over formal elegance.
+
+Maybe I should allow for more english-like syntax somehow...
+One command per line is worth considering.
+
+3. Be forgiving.
+
+Structure editor?
+
+4. Leverage natural-language knowledge.
+
+Take a look at Hypertalk?
+Would be nice to be able to use spaces.
+
+5. Avoid non-alphanumeric characters wherever possible.
+
+"let a = b" violates this.  It's also bad because we'll want some kind
+of '=' message.
+
+6. Make essential information visible and easily changeable.
+
+7. It's OK to have limited functionality.
+
+8. Hide nasty things under the bed.

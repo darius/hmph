@@ -1,0 +1,138 @@
+Issues that need attention in a production version
+
+
+1. Overall design issues
+
+restricting the editing/debugging power
+this might need cookies to be usable
+
+make sure we can support our security claims in the real-world web
+(see Tyler Close's stuff on his "web calculus":
+http://www.waterken.com/dev/Web/
+We should support this proposed standard so inter-site calls are
+possible.
+Get an expert in web tech to go over the design and point out
+weaknesses -- for random example, can Javascript code on other sites
+grab our swiss numbers out of the user's bookmarks?)
+
+Letting users program 'web services' too might be a big thing.  It
+should be easy to do RSS with this, at least.
+
+
+2. Language/system design issues
+
+a usable and good-looking UI design, informally tested on sample users.
+
+html generation (restricted by default for safety)
+
+more primitives and libraries
+e.g. mail should be a standard library
+and we should be able to generate new fill-out forms or the equivalent
+rights amplification
+
+exception handling and nonlocal exits
+
+concurrency -- vats and eventual sends, presumably
+
+expiring of apparently-temporary pages, and sturdyrefing of designated
+permanent ones
+
+links should have designators, so you don't have to click on the
+result of 2 + 3 just to find out it's 5.  either restrict powers of
+designation or make sure the user understands it's just a name the
+object alleges to be a good one.
+
+debugging with single-stepping, etc.
+
+debugging could hold up other uses of the same vat -- we must arrange
+for this not to happen much
+
+able to give literal arguments to a call button for some datatypes
+(numbers, strings) so you don't have to paste a URL 
+
+binding an object to a meaningful URI
+
+figure out how to make scopes immutable while still usable
+
+are there security implications i'm missing in editability of code in
+a live system?
+
+nested display of nested scripts?  inline blocks like smalltalk's?
+and in general, is this really the best syntax?
+we probably want syntax for things like list constants, at least...
+
+javascript would be nice for:
+wysiwyg editor
+drag-and-drop invocations
+'quasiquoted' wysiwyg html generation
+
+rerun examples for different actor instances?
+
+better forwarding/delegation support
+
+the editing interface should be written in the language itself,
+using some low-level closely-held 'can-opener' capability
+
+we want different wrappers for editing and just viewing source code
+
+tail recursion, maybe.  or looping, at least.
+
+
+3. Implementation issues
+
+protection from denial of service -- time and space usage (and if a
+computation "runs out of fuel", how do we offer it a chance to clean
+up before termination, without opening up another unbounded
+computation?  probable best answer: make vat turns atomic.)  (note
+that Python doesn't give us any way of metering memory usage, afaik.
+look into this.  maybe switch to Erlang.)
+
+real error messages, etc.
+
+persistent snapshots and logging
+
+https support (probably can just use Apache)
+
+crypto-secure swiss numbers
+
+intro page, tutorial, examples, documentation
+
+integration with a 'real' website
+
+performance, robustness
+
+some sort of caching support, probably
+
+low-level stuff in the separate to-do list
+generally sprucing up the code
+
+ability to keep objects on disk (i.e. virtual memory)
+
+so much of this overlaps what E is doing.  could we implement this on
+the soon-to-be-released E-on-Common-Lisp?
+
+ROBOTS.TXT
+
+
+4. Configuration management support
+
+some sort of version control facilities -- undo, at the least
+
+and detection of simultaneous edits.  maybe with the javascript wysiwyg,
+this could happen in sort-of-real-time
+
+must be convenient to make a set of related edits before committing
+into a live system
+
+what happens when there's a disaster and we need to recover from a
+saved snapshot?  should users have their own transaction logs they can
+replay?  depends on how serious we are about ecommerce, I guess.
+
+support for the pattern where users keep their precious data in simple
+"state bundle" objects, analogous to how conventional programs use the
+filesystem instead of persistent object databases, though hopefully
+nicer in some ways even without all the effort that's gone into
+filesystem-based tools
+
+snipping out a subset of the object graph to be transported to another
+domain (presumably related to the above note about related edits)

@@ -1,0 +1,66 @@
+better editing:
+ X jump to the right anchor when we push 'edit', etc.
+ X edit examples and text
+ X use persistent serial-number element IDs instead of indices
+ X delete elements
+ - select and move elements
+
+X string guards
+ (need a better convention for how to call these things, though)
+
+built-in lists
+ X makelist of: x   (for initial testing)
+ X list1 + list2
+ X list at: index
+ X list length
+ X list from: index to: index
+ X listguard check: object
+ - balancing for efficiency
+
+concise list syntax:
+ X [foo, bar, baz]
+ - destructuring let, too
+
+X get rid of current list stuff, rewrite mailbox in terms of new lists
+
+X must be able to survive erroneous examples
+
+X get rid of direct field accesses actor.env, actor.script
+
+X stamps and stamp guards
+
+Examples should have a button to rerun them.  Or the whole page should
+be able to rerun all its examples, though sometimes that might be more
+than we want.
+
+Here's an issue, though: if we attach the stamp to the script, that
+means all old objects formerly created with that script will bear the
+stamp, even though the creation expression didn't have 'bearing stamp'
+at the time.  Is this what we want?  Probably not.  What do we want?
+
+Also, this proposed syntax has the 'bearing stamp' evaluated at
+creation time, but the stamp is supposed to apply to the script, not
+the object.  That's incoherent.  The obvious solution is to make the
+stamp be something added to the object, not the script.  Then we still
+have the issue of how to display the stamped status in our HTML.  (And
+the efficiency issue, of course, but set that aside.)
+
+A vaguely related issue: old instances of an object created in
+environments that don't have bindings for variables used by the
+current version of the script.  And so on.  I think we need some kind
+of explicit upgrade operation: I guess we take all old instances,
+serialize them, and reconstruct them as new instances.
+
+OK, with that infrastructure, we could go ahead with html generation
+as now, except it should allow strings and lists-of-elements as
+elements.  define an html coercer that passes html-stamped objects,
+wraps lists, and escapes and wraps strings.
+
+<a href=""></a>
+<b></b>
+<blockquote></blockquote>
+<br>
+<h2></h2>
+<hr>
+<textarea name="content" style="width:90%" rows="10"></textarea>
+<p>

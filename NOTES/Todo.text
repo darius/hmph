@@ -1,0 +1,118 @@
+Do not hyperlink a variable that's a parameter to the method it's in.
+This currently happens when that variable is also bound in the parent
+environment.
+
+it would be nice to have a 'rename this script and all refs to it'
+operation.  eval() would be troublesome, of course.
+
+possible security bug! -- can you view/edit an encapsulated object if
+you manufacture a GET of foo/edit?Selector=bar ?
+
+We should give pages a title so the default title doesn't reveal the
+swiss number.  Would be nice to hide the address bar, etc., for the
+same reason.
+
+Make the front pages be ordinary objects. Not an editor facet, of course.
+
+need a design for something like guards (not this interim 'require'
+thing)
+
+single and double quotes get smushed together indistinguishably...
+the || operator is kind of overbearing typographically
+
+how to handle examples that fail?  we'd like to freeze them and
+present a link that takes you right into the debugger -- but that
+could leave your data in an inconsistent state as it continues on to
+the remaining examples.  how about: ideally they'd run atomically,
+either succeeding or having no overall effect.  then the link you get
+will rerun it up to the point of failure and leave you in the
+debugger.
+
+Another reason for environments to be immutable: it makes the above
+atomicity considerably simpler.  We still need promise resolution to
+be backtrackable, though.  (Not just assignments.)
+(We also have mutability in implementation classes like Script, etc.
+This shouldn't matter yet because they currently only get set outside
+of evaluation, but it's something to watch out for.)
+
+typing 'require boolean: true' into the "Add method" box should be an
+error
+
+an exception raised in evaluating an example should not stop us
+loading the page
+
+how about list literals -- i'd like to build that out of some more
+general mechanism like quasiparsers, etc., but don't see how offhand. 
+maybe just make "," the list constructor, like Python's? um...
+
+hopefully by Xmas:
+. persistence
+. html generation
+. clear design of examples (always run them in actor env only)
+. clear design of editor wrappers and brands
+. tutorial
+
+box Contents links to sealed version -- should be sensitive to our
+editor-wrapping state
+
+When we upgrade the global env, older accounts don't see the
+changes...  Also, we have multiple copies of the global env -- one for
+every run, basically.  We should treat the persistent copy of the
+global env as the authoritative one, not new ones consed up on every
+run.
+
+Script environment leaves out even basic stuff in user's own global env.
+For some reason the actor examples aren't seeing definitions from the
+script examples.
+Rerun the examples for different actor instance?
+Make a sensible design for how examples work in actors and in scripts.
+
+Another reason examples should run in actors at display time: it
+finesses the issue of when they get run during unpickling.  But
+there's a problem then: making a new result each time, with a new
+link.  Ouch.  So let's say, um, they get cached after the first run,
+for now.  Then the Example object must make its cache persistent.
+Keep thinking about it.  
+
+make it clear sooner that this is just a proof of concept
+
+I think we should change 'Call' to 'Run' or 'Do It'
+And comments inside code should be possible.
+
+make sure you can stop a running session, add stuff, and restart
+<- looks ugly in safari at least
+
+show elements with indents (html ignores whitespace)
+id table should respect sameness of number and string actors
+numeric literals should be linked so they can be grabbed for arguments
+split out modules for language vs. web stuff
+syntax for sameness test
+fix it so <enter> in a call param does a call, not an edit
+use different background colors for different element types, or something
+
+text and example elements need some kind of designator for forms
+ to refer to, like an index
+and an edit button
+
+case insensitivity?
+
+error messages using the &darr; (down arrow) element to point out the location
+
+should probably require parentheses in expressions like "2 + 3 * 5"
+
+maybe combine the "add method" and "add example" buttons
+(but it's ambiguous - an identifier might be a variable or a no-arg selector)
+
+suppress links to the void actor in results
+
+At this point do whatever's needed for the voting example:
+some programmable html formatting
+mailboxes and 'mail'
+
+For the weekend, if possible:
+opportunistic cleanup & improvement
+OVAL
+mailing list example
+online tutorial, slideshow
+
+http://plope.com/Members/chrism/zope_collab

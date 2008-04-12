@@ -1,0 +1,61 @@
+> Your examples are very terse and make it hard to convey the power of
+> the system. You should instead build examples of things you would want
+> to do with snippets of text: strip it of HTML, make it safe from XSS,
+> combine it with other snippets into a newspaper like structure, easily
+> edit, seal, unseal, those snippets. Show examples of concurrent use by
+> using frames to show how it looks like when two people are using it,
+> one who holds an unsealer, and one who just has a view capability.
+
+Yeah.  I think the most critical missing element is real support for
+opaque capabilities -- the fake sealing/unsealing links I added after
+the demo just don't cut it even as a placeholder.
+
+
+primitive objects should have a name binding so they can refer to
+themselves -- e.g.:
+  squared
+    self * self
+
+
+actor = env * actor_code
+env = variable -> reference
+actor_code = [method_code] * default_code
+method_code = selector * parameters * body_code
+default_code = parameters * body_code
+
+
+Actually let's define a magic method selector for default handling.
+Only problem is, a caller could bypass the regular methods
+then...  Well, do it that way anyway for the demo, just keep in mind
+that it's a hack.  So:
+
+actor = env * [method_code]
+env = variable -> reference
+method_code = selector * parameters * body_code
+
+
+The Miranda methods could be ordinary methods, just normally shown
+collapsed as a single node in the usual display.  In the display loop,
+check if the method (including its body) equals any standard Miranda
+method, and skip it if so.
+
+We'll need to enrich this model to support text and examples as well
+as code:
+
+actor = env * [element]
+env = variable -> reference
+element = text | example | method_code
+method_code = selector * parameters * body_code
+
+Couldn't text and examples have nested structure?  One idea: examples
+are just a textual convention, as far as their representation.  But it
+needs to be hypertext, since values have identity.  I don't like
+needing to define a markup language... so we'll keep them separate, at
+least in the demo.
+
+text = string
+example = expression * reference
+
+The text on display gets paragraphed and html-escaped, but with basic
+html markup interpreted.  For the demo, just insert <br> for newlines
+and leave it alone otherwise.
