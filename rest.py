@@ -30,9 +30,14 @@ by its users</b>, a bit like how <a
 href="http://en.wikipedia.org/wiki/Wiki">wikis</a> get created by
 their visitors.  Hmph's pages are active objects that people view,
 control, or edit 'live', as in <a
-href="http://www.squeak.org">Squeak</a>; people and objects can
-collaborate securely because all actions follow capability discipline,
-as in <a href="http://erights.org">E</a>.
+href="http://www.squeak.org">Squeak</a>; people and objects, in the
+intended finished system, can collaborate securely because all actions
+follow capability discipline, as in <a
+href="http://erights.org">E</a>. [But this prototype has at least two
+giant holes in the security: it uses HTTP instead of HTTPS (easily
+fixed), and the rights amplification intended for editing an object's
+code given the object does not require an unsealer to unseal it. I
+don't remember how I meant for the correct UI for that feature to work.]
 
 <p>Read the <a href="/about">hype-filled sales pitch for suits</a>.
 Or just try it out: <form method="POST" action="/makeaccount">
