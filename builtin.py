@@ -591,6 +591,6 @@ def make_account():
                       Text('You can create your own mailbox:'),
                       Example('let mailbox = makemailbox run'),
                       Text("""To add it to the directory, enter "maildirectory at: 'alice' put: mailbox sender" into the "Add example" field below, changing alice to some single-word identifier of your choice. (This will fail and return false if that identifier is already taken.)  Then inspect "mailbox" to see how to get your messages. A message can be any object, not just plain text."""),
-                      Text("""Have fun exploring!  Don't put much work into it, at least yet, because this account *will* get zapped during code upgrades; I'm not ready to commit to continuity yet.  There will be actual documentation real soon now.  Please send feedback to Darius Bacon <darius@accesscom.com>. Thanks!""")
+                      Text("""Have fun exploring!  Don't put much work into it, at least yet, because this account *will* get zapped during code upgrades; I'm not ready to commit to continuity yet.  There will be actual documentation real soon now.  Please send feedback to Darius Bacon <darius@wry.me>. Thanks!""")
                       ]))
     return get_editor(root_actor)
